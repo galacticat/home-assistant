@@ -4,6 +4,7 @@
 !.gitignore
 !.travis.yml
 !travis_secrets.yaml
+!**appdaemon/*
 secrets.yaml
 known_devices.yaml
 shell.yaml
