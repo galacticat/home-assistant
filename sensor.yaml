@@ -1,0 +1,174 @@
+# Input select
+#- input_select:
+
+# Input slider
+#- input_slider:
+
+# Uptime Sensor
+- platform: uptime
+  name: Minutes Online
+  unit_of_measurement: minutes
+
+# Speedtest
+- platform: speedtest
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+
+# FedEx
+- platform: fedex
+  username: !secret fedex_username
+  password: !secret fedex_password
+
+# UPS
+- platform: ups
+  username: !secret ups_username
+  password: !secret ups_password
+  
+# Plex Activity Monitor
+- platform: plex
+  host: 10.0.0.98
+  port: 32400
+  #name: CHRISFLIX
+  username: !secret plex_username
+  password: !secret plex_password
+
+# Radarr  
+- platform: radarr
+  api_key: !secret radarr_api_key
+  host: 10.0.0.98
+  port: 7878
+  urlbase: radarr
+  monitored_conditions:
+    - status
+
+# Sonarr
+- platform: sonarr
+  api_key: !secret sonarr_api_key
+  host: 10.0.0.98
+  port: 8989
+  urlbase: sonarr
+  monitored_conditions:
+
+# Deluge  
+- platform: deluge
+  host: 10.0.0.98
+  username: !secret deluge_username
+  password: !secret deluge_password
+  monitored_variables:
+    - 'current_status'
+    - 'download_speed'
+    - 'upload_speed'
+    
+# Weather prediction
+- platform: yr
+
+# Generates a random number
+- platform: random
+
+# Moon Condition
+- platform: moon
+
+#Weather Underground
+- platform: wunderground
+  api_key: 93d563860ccb2b6a
+  monitored_conditions:
+    - alerts
+    - feelslike_f
+    - heat_index_f
+    - precip_today_in
+    - pressure_in
+    - temp_f
+    - wind_dir
+    - location
+    - wind_mph
+    - weather_1h
+
+
+# Certificate Expiry
+- platform: cert_expiry
+  host: homeassistant.redneckit.net
+  name: 'SSL homeassistant.redneckit.net'
+  
+- platform: cert_expiry
+  host: app-server.redneckit.net
+  name: 'SSL app-server.redneckit.net'
+  
+#- platform: cert_expiry
+#  host: plex.redneckit.net
+#  name: 'SSL plex.redneckit.net'
+  
+- platform: cert_expiry
+  host: audiobooks.redneckit.net
+  name: 'SSL audiobooks.redneckit.net'
+  
+- platform: cert_expiry
+  host: library.redneckit.net
+  name: 'SSL library.redneckit.net'
+  
+- platform: cert_expiry
+  host: www.redneckit.net
+  name: 'SSL www.redneckit.net'
+  
+- platform: cert_expiry
+  host: redneckit.net
+  name: 'SSL redneckit.net'
+
+#- platform: cert_expiry
+#  host: remoteapps.redneckit.net
+#  name: 'SSL remoteapps.redneckit.net'
+  
+# Google Directions
+- platform: google_travel_time
+  name: Time to work
+  api_key: !secret google_directions_api_key
+  origin: zone.home
+  destination: zone.work
+
+- platform: google_travel_time
+  name: Time to home
+  api_key: !secret google_directions_api_key
+  origin: zone.work
+  destination: zone.home
+  
+#Time/Date
+- platform: time_date
+  display_options:
+    - 'date'
+
+# Template Sensors
+- platform: template
+  sensors:
+    home_work_duration:
+      icon_template: mdi:road
+      value_template: '{{ states.sensor.time_to_work.attributes.duration }}'
+      friendly_name: 'Normal travel time to work'
+    work_home_duration:
+      icon_template: mdi:road
+      value_template: '{{ states.sensor.time_to_home.attributes.duration }}'
+      friendly_name: 'Normal travel time to home'
+    off_work:
+      icon_template: "{% if is_state('calendar.off_work_events', 'on') %}mdi:calendar-check{% else %}mdi:calendar-blank{% endif %}"
+      value_template: "{% if is_state('calendar.off_work_events', 'on') %}Yes{% else %}No{% endif %}"
+      friendly_name: 'Is Chris off work?'
+    work_from_home:
+      icon_template: "{% if is_state('calendar.work_from_home_events', 'on') %}mdi:calendar-check{% else %}mdi:calendar-blank{% endif %}"
+      value_template: "{% if is_state('calendar.work_from_home_events', 'on') %}Yes{% else %}No{% endif %}"
+      friendly_name: 'Is Chris working from home?'
+    next_meal:
+      icon_template: mdi:food
+      friendly_name: 'Next Meal Is:'
+      value_template: '{{ states.calendar.pte_meal_plan_recipes.attributes.message }}'
+    download_slow:
+      icon_template: "{% if states.sensor.speedtest_download.state|float < 30.0 %}mdi:download-network{% else %}mdi:upload-network{% endif %}"
+      friendly_name: 'Download Slow'
+      value_template: "{% if states.sensor.speedtest_download.state|float < 30.0 %}Yes{% else %}No{% endif %}"
+    lyric_temperature_setting:
+      icon_template: mdi:thermometer
+      friendly_name: Lyric Temperature Set Value
+      value_template: '{{states.climate.lyric_thermostat.attributes.temperature}}'
+    lyric_temperature_current:
+      icon_template: mdi:thermometer
+      friendly_name: Lyric Temperature Current Value
+      value_template: '{{states.climate.lyric_thermostat.attributes.current_temperature}}'

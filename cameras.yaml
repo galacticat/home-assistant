@@ -1,0 +1,25 @@
+- platform: foscam
+  ip: 10.0.0.106
+  username: !secret foscam_username
+  password: !secret foscam_password
+  name: LIVING_ROOM_CAM
+  
+- platform: foscam
+  ip: 10.0.0.107
+  username: !secret foscam_username
+  password: !secret foscam_password
+  name: KITCHEN_CAM
+  
+#- platform: usps
+#  scan_interval: 5
+  
+# google map card
+- platform: generic
+  name: 'Chris Phone Location'
+  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.chris_galactiphone.attributes.latitude }},{{ states.device_tracker.chris_galactiphone.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:red%7Clabel:C%7C{{ states.device_tracker.chris_galactiphone.attributes.latitude }},{{ states.device_tracker.chris_galactiphone.attributes.longitude }}
+  limit_refetch_to_url_change: true
+  
+- platform: generic
+  name: 'Jazzy Phone Location'
+  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.jazzy_mae.attributes.latitude }},{{ states.device_tracker.jazzy_mae.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:red%7Clabel:J%7C{{ states.device_tracker.jazzy_mae.attributes.latitude }},{{ states.device_tracker.jazzy_mae.attributes.longitude }}
+  limit_refetch_to_url_change: true

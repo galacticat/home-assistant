@@ -1,0 +1,166 @@
+trigger_lights_out:
+  alias: Trigger Lights Out
+  sequence:
+  - alias: Lights Out
+    service: ifttt.trigger
+    data:
+      event: lights_out
+trigger_good_night:
+  alias: Trigger Good Night
+  sequence:
+  - alias: Trigger Lights Out
+    service: ifttt.trigger
+    data:
+      event: lights_out
+  - alias: Lock Front Door
+    service: lock.lock
+    data:
+      entity_id: lock.front_door_lock_locked
+wake_up_lights:
+  alias: Wake Up Lights
+  sequence:
+  - service: logbook.log
+    data_template:
+      name: Chris
+      message: is waking up
+      entity_id: device_tracker.chris_galactiphone
+  - service: ifttt.trigger
+    data:
+      event: living_light_on
+  - delay:
+      minutes: 1
+  - service: ifttt.trigger
+    data:
+      event: bathroom_light_on
+  - delay:
+      minutes: 5
+  - service: ifttt.trigger
+    data:
+      event: office_light_on
+office_light_toggle:
+  alias: Office Light
+  sequence:
+  - service: ifttt.trigger
+    data:
+      event: office_light_toggle
+bathroom_light_toggle:
+  alias: Bathroom Light
+  sequence:
+  - service: ifttt.trigger
+    data:
+      event: bathroom_light_toggle
+bedroom_light_toggle:
+  alias: Bedroom Light
+  sequence:
+  - service: ifttt.trigger
+    data:
+      event: bedroom_light_toggle
+living_light_toggle:
+  alias: Living Room Light
+  sequence:
+  - service: ifttt.trigger
+    data:
+      event: living_light_toggle
+hall_light_toggle:
+  alias: Front Hall Light
+  sequence:
+  - service: ifttt.trigger
+    data:
+      event: front_hall_light_toggle
+vanity_light_toggle:
+  alias: Vanity Light
+  sequence:
+  - service: ifttt.trigger
+    data:
+      event: vanity_light_toggle
+pause_roku:
+  alias: Pause Roku
+  sequence:
+  - data:
+      entity_id: media_player.galactiku
+    service: media_player.media_play_pause
+package_delivered_announcement:
+  alias: Package Delivered
+  sequence:
+  - data:
+      message: A Package has been delivered
+    entity_id: media_player.all_speakers
+    service: tts.google_say
+  - data:
+      entity_id: input_boolean.package_delivered_trigger
+    service: input_boolean.turn_off
+  - data:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} A package has been delivered'
+    service: notify.all_phones_message_only
+  - service: logbook.log
+    data_template:
+      message: A Package has been delivered
+lock_front_door:
+  alias: Lock Front Door
+  sequence:
+  - alias: Lock Front Door
+    data:
+      entity_id: lock.front_door_lock_locked
+    service: lock.lock
+unlock_front_door:
+  alias: Unlock Front Door
+  sequence:
+  - data:
+      entity_id: lock.front_door_lock_locked
+    service: lock.unlock
+lr_cam_goto_norm:
+  alias: GoTo Living Room
+  sequence:
+    service: shell_command.living_room_cam_goto_normal
+lr_cam_goto_fd:
+  alias: GoTo Front Door
+  sequence:
+    service: shell_command.living_room_cam_goto_front_door
+lr_cam_start_scan:
+  alias: Start Scan
+  sequence:
+  - service: shell_command.living_room_cam_scan_start
+  - delay:
+      minutes: 15
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.lr_cam_scan
+lr_cam_stop_scan:
+  alias: Stop Scan
+  sequence:
+  - service: shell_command.living_room_cam_scan_stop
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.lr_cam_scan
+kitch_cam_goto_cf:
+  alias: GoTo Cat Food
+  sequence:
+    service: shell_command.kitchen_cam_goto_cat_food
+kitch_cam_goto_gd:
+  alias: GoTo Garage Door
+  sequence:
+    service: shell_command.kitchen_cam_goto_kitchen
+kitch_cam_goto_lr:
+  alias: GoTo Living Room
+  sequence:
+    service: shell_command.kitchen_cam_goto_living_room
+kitch_cam_goto_bd:
+  alias: GoTo Bedroom Door
+  sequence:
+    service: shell_command.kitchen_cam_goto_bedroom_door
+kitch_cam_start_scan:
+  alias: Start Scan
+  sequence:
+  - service: shell_command.kitchen_cam_scan_start
+  - delay:
+      minutes: 15
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.kitch_cam_scan
+kitch_cam_stop_scan:
+  alias: Stop Scan
+  sequence:
+  - service: shell_command.kitchen_cam_scan_stop
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.kitch_cam_scan

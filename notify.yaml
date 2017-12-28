@@ -1,0 +1,50 @@
+- platform: pushbullet
+  name: pushbullet_notifier
+  api_key: !secret pushbullet_api_key
+
+- platform: html5
+  name: html5_notifier
+  gcm_api_key: !secret gcm_api_key
+  gcm_sender_id: !secret gcm_sender_id
+  
+- platform: twitter
+  name: twitter_notifier
+  consumer_key: !secret twitter_consumer_key
+  consumer_secret: !secret twitter_consumer_secret
+  access_token: !secret twitter_access_token
+  access_token_secret: !secret twitter_access_token_secret
+  
+- name: all_phones_message_only
+  platform: group
+  services:
+    - service: html5_notifier_galactiphone
+    - service: ios_jazzy_mae
+
+- name: all_phones_lock_notifier
+  platform: group
+  services:
+    - service: html5_notifier_galactiphone
+      data:
+        data:
+          actions:
+            - action: "lock_door"
+              title: "Lock Door"
+            - action: "ignore_lock"
+              title: "Ignore"
+    - service: ios_jazzy_mae
+      data:
+        data:
+          push:
+            badge: 0
+            catagory: "alarm"
+
+- platform: group
+  name: ios_jazzy_mae
+  services:
+    - service: ios_jazzy_mae
+      data:
+        data:
+          push:
+            badge: 0
+            category: "alarm"
+      

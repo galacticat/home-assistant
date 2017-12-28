@@ -1,0 +1,6 @@
+temperature_slider:
+  name: Lyric Temperature Setting
+  initial: 75
+  min: 40
+  max: 99
+  step: 1

@@ -1,0 +1,5 @@
+- platform: deluge
+  name: Pause/Unpause All Torrents
+  host: 10.0.0.98
+  username : !secret deluge_username
+  password : !secret deluge_password

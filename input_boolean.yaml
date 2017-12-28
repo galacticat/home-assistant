@@ -1,0 +1,26 @@
+energy_save_triggered:
+  name: Energy Save Was Triggered
+  initial: off
+  icon: mdi:flash
+
+package_delivered_trigger:
+  name: Package Delivery Was Triggered
+  initial: off
+  icon: mdi:package-variant
+  
+lr_cam_scan:
+  name: Living Room Camera Scan
+  initial: off
+
+kitch_cam_scan:
+  name: Kitchen Camera Scan
+  initial: off
+  
+front_door_lock_alert:
+  name: Front Door Lock Alert
+  initial: on
+  
+holiday_season:
+  name: Holiday Seasonal Condition
+  initial: off
+  icon: mdi:pine-tree

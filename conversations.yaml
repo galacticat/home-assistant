@@ -1,0 +1,4 @@
+  intents:
+    ShoppingListAddItem:
+      - Add {item} to my shopping list
+  

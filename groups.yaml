@@ -1,0 +1,257 @@
+default_view:
+  view: yes
+  name: Home
+  icon: mdi:home
+  entities:
+    - group.daily_info_group
+    - group.light_group
+    - group.locks_group
+    - group.climate_control_group
+    - group.media_remote_group
+    - group.holiday_group
+
+camera_view:
+  view: yes
+  name: Camera
+  icon: mdi:video
+  entities:
+    - group.lr_cam_ctl_group
+    - group.kitch_cam_ctl_group
+    
+map_view:
+  view: yes
+  name: Map
+  icon: mdi:google-maps
+  entities:
+    - group.phones_group
+    - camera.chris_phone_location
+    - camera.jazzy_phone_location
+    - group.travel_group
+    
+media_view:
+  view: yes
+  icon: mdi:movie
+  name: Media
+  entities:
+    - group.media_group
+
+weather_view:
+  view: yes
+  name: Weather
+  icon: mdi:weather-partlycloudy
+  entities:
+    - group.weather_overview
+    
+calendar_view:
+  view: yes
+  name: Calendar
+  icon: mdi:calendar
+  entities:
+    - calendar.all_events_chris
+    - calendar.off_work_events    
+    - calendar.all_events_work
+    - calendar.work_from_home_events    
+    - calendar.chris_garcias_facebook_events
+    - calendar.contacts
+    - calendar.creatorspace_events
+    - calendar.family
+    - calendar.holidays_in_united_states
+    - calendar.my_meetups
+    - calendar.new_releases
+    - calendar.pte_meal_plan_recipes
+    - calendar.rpg_redneckit
+    
+device_view:
+  view: yes
+  name: Devices
+  icon: mdi:engine
+  entities:
+    - group.all_devices
+    - group.all_scripts
+    - group.all_automations
+    - group.all_remotes
+    - group.all_locks
+    - group.all_switches
+    - group.sensor_group
+    - group.network_group
+    - group.ssl_group
+    - group.booleans_group
+#    - camera.usps_mail
+    - script.script_group
+    
+network_group:
+  view: no
+  name: Network
+  icon: mdi:network_group
+  entities:
+    - sensor.speedtest_ping
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    - sensor.download_slow
+
+light_group:
+  view: no
+  name: Lights
+  icon: mdi:lightbulb
+  entities:
+    - script.living_light_toggle
+    - script.bedroom_light_toggle
+    - script.bathroom_light_toggle
+    - script.vanity_light_toggle
+    - script.office_light_toggle
+    - script.hall_light_toggle
+    - script.trigger_lights_out
+
+media_remote_group:
+  view: no
+  name: Media Remotes
+  entities:
+    - script.pause_roku
+    
+sensor_group:
+  view: no
+  name: Sensors
+  entities:
+    - sensor.front_door_lock_alarm_type
+    - sun.sun
+    - sensor.moon
+    - sensor.yr_symbol
+    - sensor.random_sensor
+    - sensor.fedex  
+    - sensor.ups
+    - history_graph.temperature_history
+    - sensor.lyric_temperature_current
+    - sensor.lyric_temperature_setting
+#    - sensor.usps_mail
+#    - sensor.usps_packages
+    - sensor.radarr
+    - sensor.sonarr
+    - sensor.plex
+    - binary_sensor.event_today
+    - zwave.aeotec_zw090_zstick_gen5_us
+    - zwave.front_door_lock
+    - zwave.leviton_wall_plug
+
+ssl_group:
+  view: no
+  name: SSL Certificates
+  entities:
+    - sensor.ssl_homeassistantredneckitnet
+    - sensor.ssl_appserverredneckitnet
+#    - sensor.ssl_plexredneckitnet
+    - sensor.ssl_audiobooksredneckitnet
+    - sensor.ssl_libraryredneckitnet
+    - sensor.ssl_remoteappsredneckitnet
+    - sensor.ssl_wwwredneckitnet
+    - sensor.ssl_redneckitnet
+
+booleans_group:
+  view: no
+  name: Booleans
+  control: hidden
+  entities:
+    - input_boolean.energy_save_triggered
+    - input_boolean.package_delivered_trigger
+    - input_boolean.lr_cam_scan
+    - input_boolean.kitch_cam_scan
+
+media_group:
+  view: no
+  name: Media
+  entities:
+    - media_player.galactiku
+    - media_player.office_chromecast
+    - media_player.office_speaker
+    - media_player.living_room_chromecast
+    - media_player.living_room_home
+    - media_player.bathroom_speaker
+    - media_player.all_speakers
+    - sensor.plex
+    - media_player.plex
+
+phones_group:
+  view: no
+  name: Phones
+  entities:
+    - device_tracker.chris_galactiphone
+    - device_tracker.jazzy_mae
+    
+daily_info_group:
+  view: no
+  name: Daily Information
+  entities:
+    - sensor.off_work
+    - sensor.work_from_home
+    - sensor.next_meal
+
+weather_overview:
+  view: no
+  name: Weather Overview
+  entities:
+    - sensor.pws_location
+    - sensor.pws_temp_f
+    - sensor.pws_feelslike_f
+    - sensor.pws_heat_index_f
+    - sensor.pws_precip_today_in
+    - sensor.pws_pressure_in
+    - sensor.pws_wind_dir
+    - sensor.pws_wind_mph
+    - sensor.pws_alerts    
+    - sensor.pws_weather_1h
+    
+travel_group:
+  view: no
+  name: Travel
+  entities:
+    - sensor.home_work_duration
+    - sensor.time_to_work
+    - sensor.work_home_duration
+    - sensor.time_to_home
+    
+script_group:
+  view: no
+  name: Scripts
+  entities:
+    - script.package_delivered_announcement
+    
+lr_cam_ctl_group:
+  view: no
+  entities:
+    - camera.living_room_cam
+    - script.lr_cam_goto_norm
+    - script.lr_cam_goto_fd
+    - input_boolean.lr_cam_scan
+    
+kitch_cam_ctl_group:
+  view: no
+  entities:
+    - camera.kitchen_cam
+    - script.kitch_cam_goto_cf
+    - script.kitch_cam_goto_gd
+    - script.kitch_cam_goto_lr
+    - script.kitch_cam_goto_bd
+    - input_boolean.kitch_cam_scan
+
+locks_group:
+  view: no
+  name: Locks
+  entities:
+    - lock.front_door_lock_locked    
+    
+holiday_group:
+  view: no
+  name: Holiday Controls
+  entities:
+    - input_boolean.holiday_season
+    
+climate_control_group:
+  view: no
+  name: Climate Controls
+  entities:
+    - climate.lyric_thermostat
+    - input_number.temperature_slider
+    
+zones:
+  name: Zones
+  entities:
+    - binary_sensor.floorplan

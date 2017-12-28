@@ -1,0 +1,36 @@
+### zones.yaml
+- zone:
+  name: Home
+  latitude: 29.6760027
+  longitude: -95.0851829
+  radius: 50
+  icon: mdi:home-map-marker
+  track_ios: true
+  
+- zone 2:
+  name: Work
+  latitude: 29.9484347
+  longitude: -95.4235848
+  radius: 200
+  icon: mdi:factory
+  
+- zone 3:
+  name: Jasmine's Parents
+  latitude: 29.506615551174
+  longitude: -94.97330794768489
+  radius: 50
+  icon: mdi:home-variant
+  
+- zone 4:
+  name: Chris' Parents
+  latitude: 29.6013139
+  longitude: -94.9916207
+  radius: 50
+  icon: mdi:home-variant
+  
+- zone 5:
+  name: Aldi
+  latitude: 29.6632663
+  longitude: -95.097732
+  radius: 50
+  icon: mdi:food-apple

@@ -1,0 +1,19 @@
+# Router
+- platform: netgear
+  host: 10.0.0.1
+  username: admin
+  password: !secret netgear_password
+
+# OwnTracks
+- platform: owntracks
+  max_gps_accuracy: 200
+
+# Chris' iCloud Account
+- platform: icloud
+  username: !secret chris_icloud_username
+  password: !secret chris_icloud_password
+  
+# Jasmine's iCloud Account
+#- platform: icloud
+#  username: !secret jazzy_icloud_username
+#  password: !secret jazzy_icloud_password

@@ -1,0 +1,80 @@
+- cal_id: cgarcia865@gmail.com
+  entities:
+  - device_id: all_events_chris
+    name: All Events
+    track: true
+  - device_id: off_work_events
+    name: Off Work Events
+    track: true
+    search: "Off Work"
+
+- cal_id: uv6tsgqqahnjg8r263ulaonurc@group.calendar.google.com
+  entities:
+  - device_id: all_events_work
+    name: All Work Events
+    track: true
+  - device_id: work_from_home_events
+    name: Work From Home Events
+    track: true
+    search: "Work From Home"
+
+- cal_id: family08514623421371192264@group.calendar.google.com
+  entities:
+  - device_id: family
+    name: Family
+    track: true
+
+- cal_id: n1837ja2m1mejslsglfk978jdk@group.calendar.google.com
+  entities:
+  - device_id: rpg_redneckit
+    name: RPG RedneckIT
+    track: true
+
+
+- cal_id: de0dapud9bstit58kj6i8uklfjf93npc@import.calendar.google.com
+  entities:
+  - device_id: my_meetups
+    name: My Meetups
+    track: true
+
+- cal_id: gmutlsdt4b9hanggnpudl14sj2osmp0p@import.calendar.google.com
+  entities:
+  - device_id: pte_meal_plan_recipes
+    name: PTE Meal Plan (recipes)
+    track: true
+
+- cal_id: mavrvvpuudumedpdapip2t0554@group.calendar.google.com
+  entities:
+  - device_id: new_releases
+    name: New Releases
+    track: true
+
+- cal_id: vt4keiuqkf2ebqq15nsddi81khvcjn2e@import.calendar.google.com
+  entities:
+  - device_id: chris_garcias_facebook_events
+    name: Chris Garcia's Facebook Events
+    track: true
+
+- cal_id: s7paclq3ekbc1hh182bo6soroo@group.calendar.google.com
+  entities:
+  - device_id: creatorspace_events
+    name: Creatorspace Events
+    track: true
+
+- cal_id: addressbook#contacts@group.v.calendar.google.com
+  entities:
+  - device_id: contacts
+    name: Contacts
+    track: true
+
+- cal_id: en.usa#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_united_states
+    name: Holidays in United States
+    track: true
+
+- cal_id: family13898444767668764124@group.calendar.google.com
+  entities:
+  - device_id: family
+    name: Family
+    track: true

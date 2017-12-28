@@ -1,0 +1,336 @@
+- id: '1504206136215'
+  alias: Energy Saver
+  trigger:
+  - minutes: /60
+    platform: time
+    seconds: 0
+  condition:
+  - condition: state
+    entity_id: group.phones_group
+    state: not_home
+  action:
+  - data:
+      entity_id: script.trigger_lights_out
+    service: script.turn_on
+  - data:
+      entity_id: input_boolean.energy_save_triggered
+    service: input_boolean.turn_on
+  - data:
+      entity_id: lock.front_door_lock_locked
+    service: lock.lock
+- id: '1504394346958'
+  alias: Chris Arrive Work
+  trigger:
+  - entity_id: device_tracker.chris_galactiphone
+    event: enter
+    platform: zone
+    zone: zone.work
+  condition: []
+  action:
+  - data_template:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris arrived at Work'
+    service: notify.all_phones_message_only
+- id: '1504394569874'
+  alias: Chris Leave Work
+  trigger:
+  - entity_id: device_tracker.chris_galactiphone
+    event: leave
+    platform: zone
+    zone: zone.work
+  condition: []
+  action:
+  - data_template:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris left Work'
+    service: notify.all_phones_message_only
+- id: '1504394346747'
+  alias: Chris Arrive Home
+  trigger:
+  - entity_id: device_tracker.chris_galactiphone
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - data_template:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris is Home'
+    service: notify.all_phones_message_only
+  - data:
+      entity_id: input_boolean.energy_save_triggered
+    service: input_boolean.turn_off
+- id: '1504394563412'
+  alias: Chris Leave Home
+  trigger:
+  - entity_id: device_tracker.chris_galactiphone
+    event: leave
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - data:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris left Home'
+    service: notify.html5_notifier_galactiphone
+  - data:
+      entity_id: lock.front_door_lock_locked
+    service: lock.lock
+- id: '1504399601993'
+  alias: Jazzy Arrive Home
+  trigger:
+  - entity_id: device_tracker.jazzy_mae
+    event: enter
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - data_template:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Jasmine is Home'
+    service: notify.all_phones_message_only
+  - data:
+      entity_id: input_boolean.energy_save_triggered
+    service: input_boolean.turn_off
+- id: '1504399601123'
+  alias: Jazzy Leaves Home
+  trigger:
+  - entity_id: device_tracker.jazzy_mae
+    event: leave
+    platform: zone
+    zone: zone.home
+  condition: []
+  action:
+  - data_template:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Jasmine left Home'
+    service: notify.all_phones_message_only
+  - data:
+      entity_id: lock.front_door_lock_locked
+    service: lock.lock
+- id: '1505297777956'
+  alias: Wake Up Lights
+  trigger:
+  - at: 04:20:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: calendar.off_work_events
+    state: 'off'
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  - condition: state
+    entity_id: calendar.work_from_home_events
+    state: 'off'
+  - condition: zone
+    entity_id: device_tracker.chris_galactiphone
+    zone: zone.home
+  action:
+  - data_template:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Good morning Chris!'
+    service: notify.html5_notifier_galactiphone
+  - data:
+      entity_id: script.wake_up_lights
+    service: script.turn_on
+- id: '1504479996845'
+  alias: Wake Up Lights Work From Home
+  trigger:
+  - at: 05:00:00
+    platform: time
+  condition:
+  - condition: state
+    entity_id: calendar.off_work_events
+    state: 'off'
+  - condition: time
+    weekday:
+    - fri
+  - condition: state
+    entity_id: calendar.work_from_home_events
+    state: 'on'
+  - condition: zone
+    entity_id: device_tracker.chris_galactiphone
+    zone: zone.home
+  action:
+  - data_template:
+      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Good morning Chris!'
+    service: notify.html5_notifier_galactiphone
+  - data:
+      entity_id: script.wake_up_lights
+    service: script.turn_on
+- id: '1505433914423'
+  alias: Everyone Arrives Home
+  trigger:
+  - entity_id: group.phones_group
+    from: not_home
+    platform: state
+    to: home
+  condition:
+  - condition: state
+    entity_id: input_boolean.energy_save_triggered
+    state: 'on'
+  action:
+  - data:
+      entity_id: input_boolean.energy_save_triggered
+    service: input_boolean.turn_off
+- alias: Package Delivered
+  id: '1505500742840'
+  trigger:
+  - entity_id: input_boolean.package_delivered_trigger
+    from: 'off'
+    platform: state
+    to: 'on'
+  action:
+  - data:
+      entity_id: script.package_delivered_announcement
+    service: script.turn_on
+  condition: []
+- alias: Get Jazzy Location
+  id: '15055007463450'
+  trigger:
+  - entity_id: device_tracker.jazzy_mae
+    from: home
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - data:
+      message: request_location_update
+    service: notify.ios_jazzy_mae
+- action:
+  - data:
+      event: christmas_tree_on
+    service: ifttt.trigger
+  - data:
+      event: fire_place_lights_on
+    service: ifttt.trigger
+  - data:
+      message: Holiday Sunset Event Triggered
+    service: notify.all_phones_message_only
+  alias: Holiday Sunset Events
+  condition:
+  - condition: state
+    entity_id: group.phones_group
+    state: home
+  - condition: state
+    entity_id: input_boolean.holiday_season
+    state: 'on'
+  id: '1511302208019'
+  trigger:
+  - event: sunset
+    offset: -01:00:00
+    platform: sun
+- action:
+  - data:
+      event: christmas_tree_off
+    service: ifttt.trigger
+  - data:
+      event: fire_place_lights_off
+    service: ifttt.trigger
+  - data:
+      message: Holiday Sunrise Event Triggered
+    service: notify.all_phones_message_only
+  alias: Holiday Sunrise Event
+  condition:
+  - condition: state
+    entity_id: input_boolean.holiday_season
+    state: 'on'
+  id: '1511302332761'
+  trigger:
+  - event: sunrise
+    offset: +01:00:00
+    platform: sun
+- action:
+  - data:
+      entity_id: script.lr_cam_start_scan
+    service: script.turn_on
+  alias: LR Scan Start
+  condition: []
+  id: '1511359359015'
+  trigger:
+  - entity_id: input_boolean.lr_cam_scan
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - data:
+      entity_id: script.lr_cam_stop_scan
+    service: script.turn_on
+  - data:
+      entity_id: script.lr_cam_start_scan
+    service: script.turn_off
+  alias: LR Scan Stop
+  condition: []
+  id: '1511359777629'
+  trigger:
+  - entity_id: input_boolean.lr_cam_scan
+    from: 'on'
+    platform: state
+    to: 'off'
+- action:
+  - data:
+      entity_id: script.kitch_cam_start_scan
+    service: script.turn_on
+  alias: Kitchen Scan Start
+  condition: []
+  id: '1511359359924'
+  trigger:
+  - entity_id: input_boolean.kitch_cam_scan
+    from: 'off'
+    platform: state
+    to: 'on'
+- action:
+  - data:
+      entity_id: script.kitch_cam_stop_scan
+    service: script.turn_on
+  - data:
+      entity_id: script.kitch_cam_start_scan
+    service: script.turn_off
+  alias: Kitchen Scan Stop
+  condition: []
+  id: '1511359777753'
+  trigger:
+  - entity_id: input_boolean.kitch_cam_scan
+    from: 'on'
+    platform: state
+    to: 'off'
+- id: '1511359777645'
+  alias: Notification Lock Request
+  trigger:
+  - event_data:
+      action: lock_door
+    event_type: html5_notification.clicked
+    platform: event
+  - event_data:
+      actionName: lock_door
+    event_type: ios.notification_action_fired
+    platform: event
+  action:
+  - service: lock.lock
+    data:
+      entity_id: lock.front_door_lock_locked
+  - service: notify.all_phones_message_only
+    data:
+      message: Door lock command sent
+  condition:
+  - condition: state
+    entity_id: lock.front_door_lock_locked
+    state: unlocked
+- id: '1511957477698'
+  alias: Temp Slider Moved
+  trigger:
+    platform: state
+    entity_id: input_number.temperature_slider
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lyric_thermostat
+      temperature: "{{ states('input_number.temperature_slider') | int }}"
+- id: '2587951276548'
+  alias: Temp Setting Changed
+  trigger:
+    platform: state
+    entity_id: sensor.lyric_temperature_setting
+  action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.temperature_slider
+      value: "{{ states('sensor.lyric_temperature_setting') | int }}"

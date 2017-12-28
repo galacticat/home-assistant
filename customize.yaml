@@ -1,0 +1,188 @@
+# Sensors
+sensor.yr_symbol:
+  friendly_name: Weather
+sensor.front_door_lock_alarm_type:
+  friendly_name: Front Door Lock Status Code
+sensor.time_to_home:
+  icon: mdi:car-side
+sensor.time_to_work:
+  icon: mdi:car-side
+
+# Input Boolean
+input_boolean.kitch_cam_scan:
+  icon: mdi:video-switch
+input_boolean.lr_cam_scan:
+  icon: mdi:video-switch
+
+# Groups
+group.all_automations:
+  hidden: false
+  friendly_name: All Automation
+  control: hidden
+group.all_devices:
+  hidden: false
+  friendly_name: All Devices
+group.all_scripts:
+  control: hidden
+  hidden: false
+  friendly_name: All Scripts
+group.all_remotes:
+  hidden: false
+  friendly_name: All Remotes
+group.light_group:
+  control: hidden
+
+# Scripts
+script.wake_up_lights:
+  can_cancel: false
+script.office_light_toggle:
+  icon: mdi:lightbulb
+script.bathroom_light_toggle:
+  icon: mdi:lightbulb
+script.bedroom_light_toggle:
+  icon: mdi:lightbulb
+script.living_light_toggle:
+  icon: mdi:lightbulb
+script.hall_light_toggle:
+  icon: mdi:lightbulb
+script.vanity_light_toggle:
+  icon: mdi:lightbulb
+script.trigger_lights_out:
+  friendly_name: Turn Off All Lights
+  icon: mdi:lightbulb
+script.pause_roku:
+  icon: mdi:pause-circle
+script.package_delivered_announcement:
+  icon: mdi:package-variant
+script.lock_front_door:
+  icon: mdi:lock
+script.unlock_front_door:
+  icon: mdi:lock-open
+script.lr_cam_start_scan:
+  icon: mdi:video-switch
+script.lr_cam_stop_scan:
+  icon: mdi:video-off
+script.kitch_cam_start_scan:
+  icon: mdi:video-switch
+script.kitch_cam_stop_scan:
+  icon: mdi:video-off
+
+# Devices
+device_tracker.chris_galactiphone:
+  friendly_name: Chris' Phone
+
+# Media Players
+media_player.living_room_home:
+  friendly_name: Living Room Google Home
+media_player.office_speaker:
+  friendly_name: Office Google Home
+media_player.bathroom_speaker:
+  friendly_name: Bathroom Google Home
+
+# Locks and Cameras
+lock.front_door_lock_locked:
+  friendly_name: Front Door Lock
+group.lr_cam_ctl_group:
+  control: hidden
+  friendly_name: Living Room Camera
+script.lr_cam_goto_norm:
+  icon: mdi:arrow-all
+script.lr_cam_goto_fd:
+  icon: mdi:arrow-all
+switch.lr_cam_scan:
+  icon: mdi:repeat
+group.kitch_cam_ctl_group:
+  control: hidden
+  friendly_name: Kitchen Camera
+script.kitch_cam_goto_cf:
+  icon: mdi:arrow-all
+script.kitch_cam_goto_gd:
+  icon: mdi:arrow-all
+script.kitch_cam_goto_lr:
+  icon: mdi:arrow-all
+script.kitch_cam_goto_bd:
+  icon: mdi:arrow-all
+
+binary_sensor.floorplan:
+  custom_ui_state_card: floorplan
+  config:
+    name: Demo Floorplan
+    image: /local/custom_ui/floorplan/floorplan.svg
+    stylesheet: /local/custom_ui/floorplan/floorplan.css
+    last_motion_entity: sensor.template_last_motion
+    last_motion_class: last-motion
+    groups:
+    - name: Sensors
+      entities:
+      - sensor.dark_sky_temperature
+      text_template: '${entity.state ? Math.ceil(entity.state) : "undefined"}'
+      class_template: " var temp = parseFloat(entity.state.replace(\"\xB0\", \"\"\
+        )); if (temp < 10) return \"temp-low\"; else if (temp < 30) return \"temp-medium\"\
+        ; else return \"temp-high\"; "
+    - name: Lights
+      entities:
+      - light.hallway
+      - light.living_room
+      - light.patio
+      - group.kitchen_lights
+      - group.living_room_lights
+      states:
+      - state: 'on'
+        class: light-on
+      - state: 'off'
+        class: light-off
+      action:
+        domain: homeassistant
+        service: toggle
+    - name: Switches
+      entities:
+      - switch.doorbell
+      states:
+      - state: 'on'
+        class: doorbell-on
+      - state: 'off'
+        class: doorbell-off
+    - name: NVR
+      entities:
+      - binary_sensor.blue_iris_nvr
+      text_template: '${(entity.state === "on") ? "online" : "offline"}'
+      states:
+      - state: 'off'
+        class: danger-text
+      - state: 'on'
+        class: success-text
+    - name: Alarm Panel
+      entities:
+      - alarm_control_panel.alarm
+      states:
+      - state: armed_away
+        class: alarm-armed
+      - state: armed_home
+        class: alarm-armed
+      - state: disarmed
+        class: alarm-disarmed
+    - name: Binary sensors
+      entities:
+      - binary_sensor.front_hallway
+      - binary_sensor.kitchen
+      - binary_sensor.master_bedroom
+      - binary_sensor.theatre_room
+      states:
+      - state: 'off'
+        class: info-background
+      - state: 'on'
+        class: warning-background
+      state_transitions:
+      - name: On to off
+        from_state: 'on'
+        to_state: 'off'
+        duration: 10
+    - name: Cameras
+      entities:
+      - camera.hallway
+      - camera.driveway
+      - camera.front_door
+      - camera.backyard
+      states:
+      - state: idle
+        class: camera-idle

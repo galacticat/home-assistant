@@ -1,0 +1,8 @@
+temperature_history:
+  name: Temperature History
+  hours_to_show: 40
+  refresh: 30
+  entities:
+    - sensor.lyric_temperature_current
+    - sensor.lyric_temperature_setting
+    - input_number.temperature_slider
