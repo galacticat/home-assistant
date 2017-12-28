@@ -1,5 +1,6 @@
 temperature_slider:
-  name: Lyric Temperature Setting
+  name: Temp Set
+  icon: mdi:thermometer-lines
   initial: 75
   min: 40
   max: 99
