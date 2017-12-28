@@ -1,3 +1,13 @@
+- id: '4569875412547'
+  alias: Home Assistant Start
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+  - service: input_number.set_value
+    data_template:
+      entity_id: input_number.temperature_slider
+      value: "{{ states('sensor.lyric_temperature_setting') | int }}"
 - id: '1504206136215'
   alias: Energy Saver
   trigger:
@@ -28,7 +38,8 @@
   condition: []
   action:
   - data_template:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris arrived at Work'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Chris arrived at Work'
     service: notify.all_phones_message_only
 - id: '1504394569874'
   alias: Chris Leave Work
@@ -40,7 +51,8 @@
   condition: []
   action:
   - data_template:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris left Work'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Chris left Work'
     service: notify.all_phones_message_only
 - id: '1504394346747'
   alias: Chris Arrive Home
@@ -52,7 +64,8 @@
   condition: []
   action:
   - data_template:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris is Home'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Chris is Home'
     service: notify.all_phones_message_only
   - data:
       entity_id: input_boolean.energy_save_triggered
@@ -67,7 +80,8 @@
   condition: []
   action:
   - data:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Chris left Home'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Chris left Home'
     service: notify.html5_notifier_galactiphone
   - data:
       entity_id: lock.front_door_lock_locked
@@ -82,7 +96,8 @@
   condition: []
   action:
   - data_template:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Jasmine is Home'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Jasmine is Home'
     service: notify.all_phones_message_only
   - data:
       entity_id: input_boolean.energy_save_triggered
@@ -97,7 +112,8 @@
   condition: []
   action:
   - data_template:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Jasmine left Home'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Jasmine left Home'
     service: notify.all_phones_message_only
   - data:
       entity_id: lock.front_door_lock_locked
@@ -126,7 +142,8 @@
     zone: zone.home
   action:
   - data_template:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Good morning Chris!'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Good morning Chris!'
     service: notify.html5_notifier_galactiphone
   - data:
       entity_id: script.wake_up_lights
@@ -151,7 +168,8 @@
     zone: zone.home
   action:
   - data_template:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} Good morning Chris!'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Good morning Chris!'
     service: notify.html5_notifier_galactiphone
   - data:
       entity_id: script.wake_up_lights
@@ -203,6 +221,7 @@
       event: fire_place_lights_on
     service: ifttt.trigger
   - data:
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
       message: Holiday Sunset Event Triggered
     service: notify.all_phones_message_only
   alias: Holiday Sunset Events
@@ -226,6 +245,7 @@
       event: fire_place_lights_off
     service: ifttt.trigger
   - data:
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
       message: Holiday Sunrise Event Triggered
     service: notify.all_phones_message_only
   alias: Holiday Sunrise Event
@@ -309,6 +329,7 @@
       entity_id: lock.front_door_lock_locked
   - service: notify.all_phones_message_only
     data:
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
       message: Door lock command sent
   condition:
   - condition: state

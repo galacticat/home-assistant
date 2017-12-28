@@ -90,7 +90,8 @@ package_delivered_announcement:
       entity_id: input_boolean.package_delivered_trigger
     service: input_boolean.turn_off
   - data:
-      message: '{{now().strftime("%Y-%m-%d %H:%M:%S")}} A package has been delivered'
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'A package has been delivered'
     service: notify.all_phones_message_only
   - service: logbook.log
     data_template:
