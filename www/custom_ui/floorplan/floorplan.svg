@@ -644,7 +644,7 @@ L 184 140 L 184 137 L 202 137 L 202 131 L 201 131 L 201 117 L 202 117 L 202 114 
        id="tspan4629-6"
        x="10.988022"
        y="33.493843"
-       style="font-size:7px">La Porte:</tspan></text>
+       style="font-size:7px">Melbourne:</tspan></text>
   <text
      xml:space="preserve"
      x="58.988018"
@@ -671,8 +671,8 @@ L 184 140 L 184 137 L 202 137 L 202 131 L 201 131 L 201 117 L 202 117 L 202 114 
      xml:space="preserve"
      x="58.988018"
      y="33.493843"
-     id="sensor.pws_temp_f"
-     inkscape:label="sensor.pws_temp_f "><tspan
+     id="sensor.dark_sky_temperature"
+     inkscape:label="sensor.dark_sky_temperature "><tspan
        sodipodi:role="line"
        id="tspan4629-03-2-3"
        x="58.988018"
