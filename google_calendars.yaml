@@ -78,3 +78,9 @@
   - device_id: family
     name: Family
     track: true
+
+- cal_id: ll1j4n3e6k8v0eo703vdlijk3hb66vla@import.calendar.google.com
+  entities:
+  - device_id: sonarr_tv_schedule
+    name: Sonarr TV Schedule
+    track: true

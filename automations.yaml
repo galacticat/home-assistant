@@ -355,3 +355,16 @@
     data_template:
       entity_id: input_number.temperature_slider
       value: "{{ states('sensor.lyric_temperature_setting') | int }}"
+- id: '8524784598155'
+  alias: Food Prep Notification
+  trigger:
+  - at: 08:00:00
+    platform: time
+  condition:
+    - condition: template
+      value_template: '{% if states.sensor.next_meal ==  "" %}off{% else %}on{% endif %}'
+  action:
+  - data_template:
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: 'Pull out food to make {{states.sensor.next_meal.state}}'
+    service: notify.all_phones_message_only

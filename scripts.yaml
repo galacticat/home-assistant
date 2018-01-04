@@ -1,21 +1,44 @@
 trigger_lights_out:
   alias: Trigger Lights Out
   sequence:
-  - alias: Lights Out
-    service: ifttt.trigger
+  - service: ifttt.trigger
     data:
-      event: lights_out
+      event: hall_light_off
+  - service: ifttt.trigger
+    data:
+      event: office_light_off
+  - service: ifttt.trigger
+    data:
+      event: living_light_off
+  - service: ifttt.trigger
+    data:
+      event: bedroom_light_off
+  - service: ifttt.trigger
+    data:
+      event: vanity_light_off
+  - service: ifttt.trigger
+    data:
+      event: bathroom_light_off
+  - service: logbook.log
+    data_template:
+      name: Lights Out
+      message: was triggered
+      entity_id: script.trigger_ligths_out    
 trigger_good_night:
   alias: Trigger Good Night
   sequence:
-  - alias: Trigger Lights Out
-    service: ifttt.trigger
-    data:
-      event: lights_out
+  - alias: Trigger Lights Out Script
+    service: script.turn_on
+    entity_id: script.trigger_lights_out
   - alias: Lock Front Door
     service: lock.lock
     data:
       entity_id: lock.front_door_lock_locked
+  - service: logbook.log
+    data_template:
+      name: Good Night
+      message: triggered
+      entity_id: scritp.trigger_good_night
 wake_up_lights:
   alias: Wake Up Lights
   sequence:
@@ -37,6 +60,8 @@ wake_up_lights:
   - service: ifttt.trigger
     data:
       event: office_light_on
+      
+# Light Toggles
 office_light_toggle:
   alias: Office Light
   sequence:
@@ -73,12 +98,16 @@ vanity_light_toggle:
   - service: ifttt.trigger
     data:
       event: vanity_light_toggle
+
+# Pause Roku Script
 pause_roku:
   alias: Pause Roku
   sequence:
   - data:
       entity_id: media_player.galactiku
     service: media_player.media_play_pause
+
+# Announce Package Deliveries
 package_delivered_announcement:
   alias: Package Delivered
   sequence:
@@ -96,6 +125,8 @@ package_delivered_announcement:
   - service: logbook.log
     data_template:
       message: A Package has been delivered
+
+# Lock the front door
 lock_front_door:
   alias: Lock Front Door
   sequence:
@@ -103,12 +134,16 @@ lock_front_door:
     data:
       entity_id: lock.front_door_lock_locked
     service: lock.lock
+    
+# Unlock the front door
 unlock_front_door:
   alias: Unlock Front Door
   sequence:
   - data:
       entity_id: lock.front_door_lock_locked
     service: lock.unlock
+    
+# Camera Scripts
 lr_cam_goto_norm:
   alias: GoTo Living Room
   sequence:

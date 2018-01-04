@@ -159,7 +159,14 @@
     next_meal:
       icon_template: mdi:food
       friendly_name: 'Next Meal Is:'
-      value_template: '{{ states.calendar.pte_meal_plan_recipes.attributes.message }}'
+      value_template: >-
+        {%- set strFood = states.calendar.pte_meal_plan_recipes.attributes.message.split(': ') -%}
+        {%- set strFoodOnly = strFood[1] -%}
+        {%- if strFoodOnly == none -%}
+          ""
+        {%- else -%}
+          {{strFoodOnly}}
+        {%- endif -%}
     download_slow:
       icon_template: "{% if states.sensor.speedtest_download.state|float < 30.0 %}mdi:download-network{% else %}mdi:upload-network{% endif %}"
       friendly_name: 'Download Slow'
