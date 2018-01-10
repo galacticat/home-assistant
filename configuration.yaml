@@ -21,7 +21,6 @@ homeassistant:
 
 # Enables the frontend
 frontend:
-  javascript_version: es5
 
 # map
 map:

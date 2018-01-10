@@ -7,7 +7,7 @@
   - service: input_number.set_value
     data_template:
       entity_id: input_number.temperature_slider
-      value: "{{ states('sensor.lyric_temperature_setting') | int }}"
+      value: '{{ states(''sensor.lyric_temperature_setting'') | int }}'
 - id: '1504206136215'
   alias: Energy Saver
   trigger:
@@ -39,7 +39,7 @@
   action:
   - data_template:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Chris arrived at Work'
+      message: Chris arrived at Work
     service: notify.all_phones_message_only
 - id: '1504394569874'
   alias: Chris Leave Work
@@ -52,7 +52,7 @@
   action:
   - data_template:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Chris left Work'
+      message: Chris left Work
     service: notify.all_phones_message_only
 - id: '1504394346747'
   alias: Chris Arrive Home
@@ -65,7 +65,7 @@
   action:
   - data_template:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Chris is Home'
+      message: Chris is Home
     service: notify.all_phones_message_only
   - data:
       entity_id: input_boolean.energy_save_triggered
@@ -81,7 +81,7 @@
   action:
   - data:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Chris left Home'
+      message: Chris left Home
     service: notify.html5_notifier_galactiphone
   - data:
       entity_id: lock.front_door_lock_locked
@@ -97,7 +97,7 @@
   action:
   - data_template:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Jasmine is Home'
+      message: Jasmine is Home
     service: notify.all_phones_message_only
   - data:
       entity_id: input_boolean.energy_save_triggered
@@ -113,7 +113,7 @@
   action:
   - data_template:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Jasmine left Home'
+      message: Jasmine left Home
     service: notify.all_phones_message_only
   - data:
       entity_id: lock.front_door_lock_locked
@@ -143,7 +143,7 @@
   action:
   - data_template:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Good morning Chris!'
+      message: Good morning Chris!
     service: notify.html5_notifier_galactiphone
   - data:
       entity_id: script.wake_up_lights
@@ -169,7 +169,7 @@
   action:
   - data_template:
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Good morning Chris!'
+      message: Good morning Chris!
     service: notify.html5_notifier_galactiphone
   - data:
       entity_id: script.wake_up_lights
@@ -344,7 +344,7 @@
   - service: climate.set_temperature
     data_template:
       entity_id: climate.lyric_thermostat
-      temperature: "{{ states('input_number.temperature_slider') | int }}"
+      temperature: '{{ states(''input_number.temperature_slider'') | int }}'
 - id: '2587951276548'
   alias: Temp Setting Changed
   trigger:
@@ -354,17 +354,18 @@
   - service: input_number.set_value
     data_template:
       entity_id: input_number.temperature_slider
-      value: "{{ states('sensor.lyric_temperature_setting') | int }}"
+      value: '{{ states(''sensor.lyric_temperature_setting'') | int }}'
 - id: '8524784598155'
   alias: Food Prep Notification
   trigger:
   - at: 08:00:00
     platform: time
   condition:
-    - condition: template
-      value_template: '{% if states.sensor.next_meal ==  "" %}off{% else %}on{% endif %}'
+  - condition: state
+    entity_id: sensor.meal_planned
+    state: 'yes'
   action:
   - data_template:
+      message: Pull out food to make {{states.sensor.next_meal.state}}
       title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
-      message: 'Pull out food to make {{states.sensor.next_meal.state}}'
     service: notify.all_phones_message_only
