@@ -156,31 +156,40 @@
       icon_template: "{% if is_state('calendar.work_from_home_events', 'on') %}mdi:calendar-check{% else %}mdi:calendar-blank{% endif %}"
       value_template: "{% if is_state('calendar.work_from_home_events', 'on') %}Yes{% else %}No{% endif %}"
       friendly_name: 'Is Chris working from home?'
+
+    # Meal Plan Sensors
     now_seconds:
       value_template: "{{ as_timestamp(now())|int }}"
     next_meal_seconds:
       value_template: "{{ as_timestamp(states.calendar.pte_meal_plan_recipes.attributes.start_time)|int }}"
     next_meal_diff_seconds:
-      value_template: "{{ ((as_timestamp(states.calendar.pte_meal_plan_recipes.attributes.start_time)|int)-(as_timestamp(now())|int)) }}"
+      value_template: "{{ (states('sensor.next_meal_seconds')| int - states('sensor.now_seconds')| int) }}"
     next_meal:
       icon_template: mdi:food
       friendly_name: 'Next Meal Is:'
       value_template: >-
-        {%- if ((as_timestamp(states.calendar.pte_meal_plan_recipes.attributes.start_time)-as_timestamp(now())) | int) < 86400 -%}
+        {%- if (states('sensor.next_meal_diff_seconds')| int < 86400) and (states('sensor.next_meal_diff_seconds')| int > 0) -%}
           {%- set strFood = states.calendar.pte_meal_plan_recipes.attributes.message.split(': ') -%}
           {%- set strFoodOnly = strFood[1] -%}
-          {%- if strFoodOnly == none -%} 
-            
-          {%- else -%}
-            {{strFoodOnly}}
-          {%- endif -%}
+          {{strFoodOnly}}         
         {%- else -%}
-          
-        {%- endif -%}      
+        {%- endif -%}
+    meal_planned:
+      friendly_name: Meal Today?
+      value_template: >-
+        {%- if (states('sensor.next_meal_diff_seconds')| int < 86400) and (states('sensor.next_meal_diff_seconds')| int > 0) -%}
+          yes
+        {%- else -%}
+          no
+        {%- endif -%}
+
+    # Download Speed Sensors
     download_slow:
       icon_template: "{% if states.sensor.speedtest_download.state|float < 30.0 %}mdi:download-network{% else %}mdi:upload-network{% endif %}"
       friendly_name: 'Download Slow'
       value_template: "{% if states.sensor.speedtest_download.state|float < 30.0 %}Yes{% else %}No{% endif %}"
+
+    # Climate Control Sensors
     lyric_temperature_setting:
       icon_template: mdi:thermometer
       friendly_name: Lyric Temperature Set Value
@@ -189,11 +198,3 @@
       icon_template: mdi:thermometer
       friendly_name: Lyric Temperature Current Value
       value_template: '{{states.climate.lyric_thermostat.attributes.current_temperature}}'
-    meal_planned:
-      friendly_name: Meal Today?
-      value_template: >-
-        {%- if ((as_timestamp(states.calendar.pte_meal_plan_recipes.attributes.start_time)-as_timestamp(now())) | int) < 86400 -%}
-          yes
-        {%- else -%}
-          no
-        {%- endif -%}

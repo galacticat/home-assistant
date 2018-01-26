@@ -181,3 +181,4 @@ input_boolean: !include input_boolean.yaml
 alert: !include alert.yaml
 input_number: !include input_number.yaml
 history_graph: !include history_graph.yaml
+light: !include light.yaml

@@ -1,0 +1,62 @@
+- platform: template
+  lights:
+    hall_light:
+      friendly_name: "Hall Light"
+      turn_on:
+        service: ifttt.trigger
+        data:
+          event: hall_light_on
+      turn_off:
+        service: ifttt.trigger
+        data:
+          event: hall_light_off
+    office_light:
+      friendly_name: "Office Light"
+      turn_on:
+        service: ifttt.trigger
+        data:
+          event: office_light_on
+      turn_off:
+        service: ifttt.trigger
+        data:
+          event: office_light_off
+    bathroom_light:
+      friendly_name: "Bathroom Light"
+      turn_on:
+        service: ifttt.trigger
+        data:
+          event: bathroom_light_on
+      turn_off:
+        service: ifttt.trigger
+        data:
+          event: bathroom_light_off
+    livingroom_light:
+      friendly_name: "Living Room Light"
+      turn_on:
+        service: ifttt.trigger
+        data:
+          event: living_light_on
+      turn_off:
+        service: ifttt.trigger
+        data:
+          event: living_light_off
+    bedroom_light:
+      friendly_name: "Bedroom Light"
+      turn_on:
+        service: ifttt.trigger
+        data:
+          event: bedroom_light_on
+      turn_off:
+        service: ifttt.trigger
+        data:
+          event: bedroom_light_off
+    vanity_light:
+      friendly_name: "Vanity Light"
+      turn_on:
+        service: ifttt.trigger
+        data:
+          event: vanity_light_on
+      turn_off:
+        service: ifttt.trigger
+        data:
+          event: vanity_light_off

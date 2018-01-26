@@ -248,6 +248,7 @@ climate_control_group:
   view: no
   name: Climate Controls
   entities:
+    - sensor.pws_temp_f
     - climate.lyric_thermostat
     - input_number.temperature_slider
     

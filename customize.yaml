@@ -7,6 +7,8 @@ sensor.time_to_home:
   icon: mdi:car-side
 sensor.time_to_work:
   icon: mdi:car-side
+sensor.pws_temp_f:
+  friendly_name: Outside Temperature
 
 # Input Boolean
 input_boolean.kitch_cam_scan:
