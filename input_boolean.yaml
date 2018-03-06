@@ -24,3 +24,6 @@ holiday_season:
   name: Holiday Seasonal Condition
   initial: off
   icon: mdi:pine-tree
+
+alarm_clock_status:
+  initial: on

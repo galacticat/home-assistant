@@ -1,0 +1,78 @@
+media_player.plex_web_chrome:
+  platform: plex
+  unique_id: kke4njm6xenjvv21fo8mqfuq
+sensor.jazzy_mae_battery_state:
+  platform: ios
+  unique_id: state_jazzy_mae
+sensor.jazzy_mae_battery_level:
+  platform: ios
+  unique_id: level_jazzy_mae
+lock.front_door_lock_locked:
+  platform: zwave
+  unique_id: 5-72057594127613952
+sensor.front_door_lock_alarm_type:
+  platform: zwave
+  unique_id: 5-72057594127859713
+sensor.front_door_lock_alarm_level:
+  platform: zwave
+  unique_id: 5-72057594127859729
+switch.leviton_wall_plug_switch:
+  platform: zwave
+  unique_id: 6-72057594143391744
+media_player.galactiku_2:
+  platform: plex
+  unique_id: daba369103a967d24b5ae622b2281a82
+media_player.plex_web_chrome_2:
+  platform: plex
+  unique_id: ftsyy9uzp8gdfsxye9in6cv3
+media_player.plex_web_chrome_3:
+  platform: plex
+  unique_id: jzl2vqhtlnl1ondf4pk3i0ij
+media_player.plex_web_chrome_4:
+  platform: plex
+  unique_id: lwsgsep35eu6gkofo8e8gssm
+sensor.allergy_index_historical_average:
+  platform: pollen
+  unique_id: 77571_allergy_index_historical_average
+sensor.allergy_index_today:
+  platform: pollen
+  unique_id: 77571_allergy_index_today
+sensor.allergy_index_tomorrow:
+  platform: pollen
+  unique_id: 77571_allergy_index_tomorrow
+sensor.allergy_index_yesterday:
+  platform: pollen
+  unique_id: 77571_allergy_index_yesterday
+sensor.allergy_index_forecasted_average:
+  platform: pollen
+  unique_id: 77571_allergy_index_forecasted_average
+sensor.cold__flu_forecasted_average:
+  platform: pollen
+  unique_id: 77571_cold__flu_forecasted_average
+media_player.office_chromecast:
+  platform: cast
+  unique_id: da44973c-0f35-4451-f0fc-7b3eef3bf9c2
+media_player.office_speaker:
+  platform: cast
+  unique_id: b697cce7-5ae3-be6a-48aa-bd880612cd67
+media_player.all_speakers:
+  platform: cast
+  unique_id: dcd9c676-e145-40a4-a297-941a4ceba855
+media_player.living_room_chromecast:
+  platform: cast
+  unique_id: d6ebe67d-1190-96db-b85c-1f216bf61518
+media_player.living_room_home:
+  platform: cast
+  unique_id: cfbc8c58-861a-10db-a7f5-88ae64f7022d
+media_player.bathroom_speaker:
+  platform: cast
+  unique_id: 77db26f5-eaf0-c13d-82d8-db35c2f57844
+media_player.plex_web_chrome_5:
+  platform: plex
+  unique_id: x8l96nl5kqqq2q0odgfxfjyf
+media_player.plex_web_chrome_6:
+  platform: plex
+  unique_id: hrf1dvj8l6tadyapwn04cibw
+media_player.living_room_speaker:
+  platform: cast
+  unique_id: 863c7420-afc3-ceca-c476-731a7a2b9259

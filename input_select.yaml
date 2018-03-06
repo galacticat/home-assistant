@@ -1,0 +1,16 @@
+living_room_cam_view:
+  name: Living Room Cam View
+  options:
+    - Living Room
+    - Front Door
+  initial: Living Room
+  icon: mdi:eye
+kitchen_cam_view:
+  name: Kitchin Cam View
+  options:
+    - Cat Food
+    - Garage Door
+    - Living Room
+    - Bedroom Door
+  initial: Cat Food
+  icon: mdi:eye

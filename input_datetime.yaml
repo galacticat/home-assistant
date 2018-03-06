@@ -1,0 +1,5 @@
+alarm_time_input:
+  name: Alarm Time
+  has_date: false
+  has_time: true
+  initial: 05:00

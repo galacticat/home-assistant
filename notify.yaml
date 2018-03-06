@@ -18,7 +18,7 @@
   platform: group
   services:
     - service: html5_notifier_galactiphone
-    - service: ios_jazzy_mae
+    - service: html5_notifier_jazzymae
 
 - name: all_phones_lock_notifier
   platform: group
@@ -31,20 +31,11 @@
               title: "Lock Door"
             - action: "ignore_lock"
               title: "Ignore"
-    - service: ios_jazzy_mae
+    - service: html5_notifier_jazzymae
       data:
         data:
-          push:
-            badge: 0
-            catagory: "alarm"
-
-- platform: group
-  name: ios_jazzy_mae
-  services:
-    - service: ios_jazzy_mae
-      data:
-        data:
-          push:
-            badge: 0
-            category: "alarm"
-      
+          actions:
+            - action: "lock_door"
+              title: "Lock Door"
+            - action: "ignore_lock"
+              title: "Ignore"

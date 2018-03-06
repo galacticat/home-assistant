@@ -1,29 +1,14 @@
 trigger_lights_out:
   alias: Trigger Lights Out
   sequence:
-  - service: ifttt.trigger
+  - service: light.turn_off
     data:
-      event: hall_light_off
-  - service: ifttt.trigger
-    data:
-      event: office_light_off
-  - service: ifttt.trigger
-    data:
-      event: living_light_off
-  - service: ifttt.trigger
-    data:
-      event: bedroom_light_off
-  - service: ifttt.trigger
-    data:
-      event: vanity_light_off
-  - service: ifttt.trigger
-    data:
-      event: bathroom_light_off
+      entity_id: group.all_lights
   - service: logbook.log
     data_template:
       name: Lights Out
       message: was triggered
-      entity_id: script.trigger_ligths_out    
+      entity_id: script.trigger_ligths_out
 trigger_good_night:
   alias: Trigger Good Night
   sequence:
@@ -39,28 +24,36 @@ trigger_good_night:
       name: Good Night
       message: triggered
       entity_id: scritp.trigger_good_night
-wake_up_lights:
-  alias: Wake Up Lights
+wake_up:
+  alias: Wake Up Script
   sequence:
   - service: logbook.log
     data_template:
       name: Chris
       message: is waking up
       entity_id: device_tracker.chris_galactiphone
-  - service: ifttt.trigger
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.lyric_thermostat
+      temperature: '{{ states(''sensor.wake_up_temperature'') | int }}'
+  - service: light.turn_on
     data:
-      event: living_light_on
+      entity_id: light.livingroom_light
+  - service: notify.html5_notifier_galactiphone
+    data_template:
+      title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+      message: Good morning Chris!
   - delay:
       minutes: 1
-  - service: ifttt.trigger
+  - service: light.turn_on
     data:
-      event: bathroom_light_on
+      entity_id: light.bathroom_light
   - delay:
       minutes: 5
-  - service: ifttt.trigger
+  - service: light.turn_on
     data:
-      event: office_light_on
-      
+      entity_id: light.office_light
+
 # Light Toggles
 office_light_toggle:
   alias: Office Light
@@ -124,7 +117,25 @@ package_delivered_announcement:
     service: notify.all_phones_message_only
   - service: logbook.log
     data_template:
-      message: A Package has been delivered
+      name: A Package
+      entity_id: script.package_delivered_announcement
+      message: has been delivered
+      
+# Announce what is for dinner
+whats_for_dinner_announcement:
+  alias: What is for dinner
+  sequence:
+    - service: tts.google_say
+      entity_id: media_player.all_speakers
+      data_template:
+        message: >-
+          {%- if (states('sensor.next_meal_diff_seconds')| int < 86400) and (states('sensor.next_meal_diff_seconds')| int > 0) -%}
+            {%- set strFood = states.calendar.pte_meal_plan_recipes.attributes.message.split(': ') -%}
+            {%- set strFoodOnly = strFood[1] -%}
+            {{strFoodOnly}}         
+          {%- else -%}
+            "There is no meal on the plan"
+          {%- endif -%}
 
 # Lock the front door
 lock_front_door:
@@ -144,14 +155,17 @@ unlock_front_door:
     service: lock.unlock
     
 # Camera Scripts
-lr_cam_goto_norm:
-  alias: GoTo Living Room
+living_room_camera_view:
+  alias: Living Room Camera View
   sequence:
-    service: shell_command.living_room_cam_goto_normal
-lr_cam_goto_fd:
-  alias: GoTo Front Door
-  sequence:
-    service: shell_command.living_room_cam_goto_front_door
+    - service_template: >-
+            {% if is_state("input_select.living_room_cam_view", "Living Room") %}
+              shell_command.living_room_cam_goto_normal
+            {%-elif is_state("input_select.living_room_cam_view", "Front Door") %}
+              shell_command.living_room_cam_goto_front_door
+            {% else %}
+              
+            {% endif %}
 lr_cam_start_scan:
   alias: Start Scan
   sequence:
@@ -168,22 +182,21 @@ lr_cam_stop_scan:
   - service: input_boolean.turn_off
     data:
       entity_id: input_boolean.lr_cam_scan
-kitch_cam_goto_cf:
-  alias: GoTo Cat Food
+kitchen_camera_view:
+  alias: Kitchen Camera View
   sequence:
-    service: shell_command.kitchen_cam_goto_cat_food
-kitch_cam_goto_gd:
-  alias: GoTo Garage Door
-  sequence:
-    service: shell_command.kitchen_cam_goto_kitchen
-kitch_cam_goto_lr:
-  alias: GoTo Living Room
-  sequence:
-    service: shell_command.kitchen_cam_goto_living_room
-kitch_cam_goto_bd:
-  alias: GoTo Bedroom Door
-  sequence:
-    service: shell_command.kitchen_cam_goto_bedroom_door
+    - service_template: >-
+            {% if is_state("input_select.kitchen_cam_view", "Cat Food") %}
+              shell_command.kitchen_cam_goto_cat_food
+            {%-elif is_state("input_select.kitchen_cam_view", "Garage Door") %}
+              shell_command.kitchen_cam_goto_kitchen
+            {%-elif is_state("input_select.kitchen_cam_view", "Living Room") %}
+              shell_command.kitchen_cam_goto_living_room
+            {%-elif is_state("input_select.kitchen_cam_view", "Bedroom Door") %}
+              shell_command.kitchen_cam_goto_bedroom_door
+            {% else %}
+              
+            {% endif %}
 kitch_cam_start_scan:
   alias: Start Scan
   sequence:
@@ -200,3 +213,12 @@ kitch_cam_stop_scan:
   - service: input_boolean.turn_off
     data:
       entity_id: input_boolean.kitch_cam_scan
+      
+# Test Script
+test_script:
+  sequence:
+    - service: notify.html5_notifier_galactiphone
+      data:
+        title: '{{now().strftime("%Y-%m-%d %H:%M:%S")}}'
+        message: Test Successful!
+      

@@ -21,5 +21,5 @@
   
 - platform: generic
   name: 'Jazzy Phone Location'
-  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.jazzy_mae.attributes.latitude }},{{ states.device_tracker.jazzy_mae.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:red%7Clabel:J%7C{{ states.device_tracker.jazzy_mae.attributes.latitude }},{{ states.device_tracker.jazzy_mae.attributes.longitude }}
+  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.device_tracker.jazzy_jazzymae.attributes.latitude }},{{ states.device_tracker.jazzy_jazzymae.attributes.longitude }}&zoom=13&size=500x500&maptype=roadmap&markers=color:red%7Clabel:J%7C{{ states.device_tracker.jazzy_jazzymae.attributes.latitude }},{{ states.device_tracker.jazzy_jazzymae.attributes.longitude }}
   limit_refetch_to_url_change: true

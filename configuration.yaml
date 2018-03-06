@@ -36,7 +36,6 @@ http:
   #base_url: example.duckdns.org:8123
   
   trusted_networks:
-    - 10.0.0.0/24
   base_url: homeassistant.redneckit.net
 
 # Checks for available updates
@@ -59,6 +58,7 @@ logbook:
   exclude:
     entities:
       - sensor.random_sensor
+      - sensor.yr_symbol
       - sensor.pws_feelslike_f
       - sensor.pws_heat_index_f
       - sensor.pws_location
@@ -72,10 +72,16 @@ logbook:
       - sensor.time_to_work
       - sensor.work_home_duration
       - sensor.home_work_duration
+      - sensor.next_meal_diff_seconds
+      - sensor.now_seconds
 
 # Control Logbook entries
 logger:
-  default: error
+  default: warn
+  logs:
+    homeassistant.components.recorder: debug
+    homeassistant.components.automation: debug
+    homeassistant.components.notify: debug
 
 # Track the sun
 sun:
@@ -107,10 +113,10 @@ google:
   client_secret: !secret google_calendar_client_secret
 
 # Google Domains
-google_domains:
-  domain: dyndns.redneckit.net
-  username: !secret google_domains_username
-  password: !secret google_domains_password
+#google_domains:
+#  domain: dyndns.redneckit.net
+#  username: !secret google_domains_username
+#  password: !secret google_domains_password
   
 # Google Assistant
 google_assistant:
@@ -118,7 +124,45 @@ google_assistant:
   client_id: !secret google_assistant_client_id
   access_token: !secret google_assistant_access_token
   api_key: !secret google_assistant_api_key
-  expose_by_default: false
+  exposed_domains:
+    - light
+  entity_config:
+    script.bathroom_light_toggle:
+      expose: false
+    script.bedroom_light_toggle:
+      expose: false
+    script.hall_light_toggle:
+      expose: false
+    script.living_light_toggle:
+      expose: false
+    script.office_light_toggle:
+      expose: false
+    script.vanity_light_toggle:
+      expose: false
+    script.kitch_cam_goto_bd:
+      expose: false
+    script.kitch_cam_goto_cf:
+      expose: false
+    script.kitch_cam_goto_gd:
+      expose: false
+    script.kitch_cam_goto_lr:
+      expose: false
+    script.kitch_cam_start_scan:
+      expose: false
+    script.kitch_cam_stop_scan:
+      expose: false
+    script.lr_cam_goto_fd:
+      expose: false
+    script.lr_cam_goto_norm:
+      expose: false
+    script.lr_cam_start_scan:
+      expose: false
+    script.lr_cam_stop_scan:
+      expose: false
+    script.package_delivered_announcement:
+      expose: false
+    script.test_script:
+      expose: false
 
 # USPS
 #usps:
@@ -133,26 +177,6 @@ mqtt:
   keepalive: 60
   username: !secret mqtt_username
   password: !secret mqtt_password
-
-# IOS App
-ios:
-  push:
-    categories:
-      - name: Alarm
-        identifier: 'alarm'
-        actions:
-          - identifier: 'SOUND_ALARM'
-            title: 'Lock Door'
-            activationMode: 'background'
-            authenticationRequired: no
-            destructive: no
-            behavior: 'default'
-          - identifier: 'SILENCE_ALARM'
-            title: 'Ignore'
-            activationMode: 'background'
-            authenticationRequired: no
-            destructive: yes
-            behavior: 'default'
             
 # Lyric
 lyric:
@@ -167,18 +191,19 @@ automation: !include automations.yaml
 media_player: !include media_player.yaml
 script: !include scripts.yaml
 notify: !include notify.yaml
+alert: !include alert.yaml
 shopping_list: !include shopping_list.yaml
 zone: !include zones.yaml
 panel_custom: !include panel_custom.yaml
 binary_sensor: !include binary_sensors.yaml
 camera: !include cameras.yaml
-# Allows you to issue voice commands from the frontend in enabled browsers
 conversation: !include conversations.yaml
 zwave: !include zwave.yaml
 shell_command: !include shell.yaml
 switch: !include switch.yaml
 input_boolean: !include input_boolean.yaml
-alert: !include alert.yaml
 input_number: !include input_number.yaml
+input_select: !include input_select.yaml
+input_datetime: !include input_datetime.yaml
 history_graph: !include history_graph.yaml
 light: !include light.yaml

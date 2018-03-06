@@ -9,13 +9,35 @@ sensor.time_to_work:
   icon: mdi:car-side
 sensor.pws_temp_f:
   friendly_name: Outside Temperature
+sensor.time:
+  hidden: true
+sensor.alarm_clock_hour:
+  hidden: true
+sensor.alarm_clock_minute:
+  hidden: true
+sensor.alarm_clock_time_long:
+  hidden: true
+sensor.alarm_clock_time:
+  friendly_name: 'Alarm Clock Setting'
+  icon: mdi:alarm
 
 # Input Boolean
 input_boolean.kitch_cam_scan:
   icon: mdi:video-switch
 input_boolean.lr_cam_scan:
   icon: mdi:video-switch
-
+input_boolean.alarm_clock_status:
+  friendly_name: 'Alarm Clock Status'
+  icon: mdi:alarm-check
+  
+# Input Numbers
+input_number.alarm_clock_hour:
+  friendly_name: 'Hour'
+  icon: mdi:timer
+input_number.alarm_clock_minute:
+  friendly_name: 'Minute'
+  icon: mdi:timer
+  
 # Groups
 group.all_automations:
   hidden: false
@@ -64,10 +86,16 @@ script.lr_cam_start_scan:
   icon: mdi:video-switch
 script.lr_cam_stop_scan:
   icon: mdi:video-off
+script.living_room_camera_view:
+  friendly_name: Go to Selected View
+  icon: mdi:none
 script.kitch_cam_start_scan:
   icon: mdi:video-switch
 script.kitch_cam_stop_scan:
   icon: mdi:video-off
+script.kitchen_camera_view:
+  friendly_name: Go to Selected View
+  icon: mdi:none
 
 # Devices
 device_tracker.chris_galactiphone:
