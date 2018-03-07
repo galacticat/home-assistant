@@ -41,6 +41,7 @@ weather_view:
   icon: mdi:weather-partlycloudy
   entities:
     - group.weather_overview
+#    - weather.custom
     
 calendar_view:
   view: yes

@@ -1,3 +1,6 @@
+weather.custom:
+  custom_ui_state_card: state-card-custom-weather
+
 # Sensors
 sensor.yr_symbol:
   friendly_name: Weather

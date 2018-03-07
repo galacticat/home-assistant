@@ -21,6 +21,8 @@ homeassistant:
 
 # Enables the frontend
 frontend:
+#  extra_html_url:
+#    - /config/www/custom_ui/state-card-custom-weather.html
 
 # map
 map:
@@ -78,10 +80,10 @@ logbook:
 # Control Logbook entries
 logger:
   default: warn
-  logs:
-    homeassistant.components.recorder: debug
-    homeassistant.components.automation: debug
-    homeassistant.components.notify: debug
+#  logs:
+#    homeassistant.components.recorder: debug
+#    homeassistant.components.automation: debug
+#    homeassistant.components.notify: debug
 
 # Track the sun
 sun:

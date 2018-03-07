@@ -1,15 +1,22 @@
-AppDaemon:
-  logfile: STDOUT
-  errorfile: STDERR
+secrets: /config/secrets.yaml
+log:
+  accessfile: /config/appdaemon/logs/access.log
+  errorfile: /config/appdaemon/logs/error.log
+  logfile: /config/appdaemon/logs/appdaemon.log
+  log_generations: 3
+  log_size: 1000000
+appdaemon:
   threads: 10
   app_dir: /config/appdaemon/apps
-HASS:
-  ha_url: http://10.0.0.94:8123
-HADashboard:
+  time_zone: !secret home_time_zone
+  api_port: 5000
+  api_key: 6fe38acc-0f67-402b-8d5a-d59e2bc4765c
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://10.0.0.94:8123
+      ha_key: !secret http_password
+      namespace: default
+hadashboard:
   dash_url: http://10.0.0.94:5050
   dash_dir: /config/appdaemon/dashboards
-
-# Apps
-hello_world:
-  module: hello
-  class: HelloWorld
