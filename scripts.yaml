@@ -36,6 +36,10 @@ wake_up:
     data_template:
       entity_id: climate.lyric_thermostat
       temperature: '{{ states(''sensor.wake_up_temperature'') | int }}'
+  - service: climate.set_operation_mode
+    data_template:
+      entitiy_id: climate.lyric_thermostat
+      operation_mode: auto
   - service: light.turn_on
     data:
       entity_id: light.livingroom_light
@@ -188,6 +192,8 @@ kitchen_camera_view:
     - service_template: >-
             {% if is_state("input_select.kitchen_cam_view", "Cat Food") %}
               shell_command.kitchen_cam_goto_cat_food
+            {%-elif is_state("input_select.kitchen_cam_view", "Cat Beds") %}
+              shell_command.kitchen_cam_goto_cat_beds
             {%-elif is_state("input_select.kitchen_cam_view", "Garage Door") %}
               shell_command.kitchen_cam_goto_kitchen
             {%-elif is_state("input_select.kitchen_cam_view", "Living Room") %}

@@ -66,7 +66,7 @@
 
 # Pollen Levels
 -  platform: pollen
-   zip_code: 77571
+   zip_code: '77571'
    monitored_conditions:
      - allergy_average_forecasted
      - allergy_average_historical
@@ -95,7 +95,6 @@
     - location
     - wind_mph
     - weather_1h
-
 
 # Certificate Expiry
 - platform: cert_expiry
@@ -152,6 +151,42 @@
 # Template Sensors
 - platform: template
   sensors:
+
+  # Travel Sensors
+    travel_duration:
+      friendly_name: Travel Time
+      icon_template: mdi:car-side
+      value_template: >-
+        {%- if is_state('device_tracker.chris_galactiphone', 'Work') -%}
+          {{ states.sensor.time_to_home.attributes.duration_in_traffic }}
+        {%- elif is_state('device_tracker.chris_galactiphone', 'home') -%}
+          {{ states.sensor.time_to_work.attributes.duration_in_traffic }}
+        {%- else -%}
+          N/A
+        {%- endif -%}
+    travel_duration_normal:
+      friendly_name: Usual Travel Time
+      icon_template: mdi:road
+      value_template: >-
+        {%- if is_state('device_tracker.chris_galactiphone', 'Work') -%}
+          {{ states.sensor.time_to_home.attributes.duration }}
+        {%- elif is_state('device_tracker.chris_galactiphone', 'home') -%}
+          {{ states.sensor.time_to_work.attributes.duration }}
+        {%- else -%}
+          N/A
+        {%- endif -%}
+    destination:
+      friendly_name: Destination
+      icon_template: mdi:google-maps
+      value_template: >-
+        {%- if is_state('device_tracker.chris_galactiphone', 'Work') -%}
+          Home
+        {%- elif is_state('device_tracker.chris_galactiphone', 'home') -%}
+          Work
+        {%- else -%}
+          N/A
+        {%- endif -%}
+      
     home_work_duration:
       icon_template: mdi:road
       value_template: '{{ states.sensor.time_to_work.attributes.duration }}'

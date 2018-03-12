@@ -9,6 +9,7 @@ kitchen_cam_view:
   name: Kitchin Cam View
   options:
     - Cat Food
+    - Cat Beds
     - Garage Door
     - Living Room
     - Bedroom Door
