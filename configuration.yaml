@@ -21,8 +21,6 @@ homeassistant:
 
 # Enables the frontend
 frontend:
-#  extra_html_url:
-#    - /config/www/custom_ui/state-card-custom-weather.html
 
 # map
 map:
@@ -32,10 +30,7 @@ config:
   
 
 http:
-  # Uncomment this to add a password (recommended!)
   api_password: !secret http_password
-  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  #base_url: example.duckdns.org:8123
   
   trusted_networks:
   base_url: homeassistant.redneckit.net
@@ -99,19 +94,6 @@ logger:
 # Track the sun
 sun:
 
-# Adds Terminal to main page
-#panel_iframe:
-#  terminal:
-#    title: Terminal
-#    icon: mdi:console
-#    url: https://10.0.0.94:7681
-
-# Adds Configuration Editor to main page    
-#  configurator:
-#    title: Configuration Editor
-#    icon: mdi:wrench
-#    url: https://10.0.0.94:3218
-
 # Text to speech
 tts:
   - platform: google
@@ -132,50 +114,50 @@ google:
 #  password: !secret google_domains_password
   
 # Google Assistant
-google_assistant:
-  project_id: home-assistant-178722
-  client_id: !secret google_assistant_client_id
-  access_token: !secret google_assistant_access_token
-  api_key: !secret google_assistant_api_key
-  exposed_domains:
-    - light
-  entity_config:
-    script.bathroom_light_toggle:
-      expose: false
-    script.bedroom_light_toggle:
-      expose: false
-    script.hall_light_toggle:
-      expose: false
-    script.living_light_toggle:
-      expose: false
-    script.office_light_toggle:
-      expose: false
-    script.vanity_light_toggle:
-      expose: false
-    script.kitch_cam_goto_bd:
-      expose: false
-    script.kitch_cam_goto_cf:
-      expose: false
-    script.kitch_cam_goto_gd:
-      expose: false
-    script.kitch_cam_goto_lr:
-      expose: false
-    script.kitch_cam_start_scan:
-      expose: false
-    script.kitch_cam_stop_scan:
-      expose: false
-    script.lr_cam_goto_fd:
-      expose: false
-    script.lr_cam_goto_norm:
-      expose: false
-    script.lr_cam_start_scan:
-      expose: false
-    script.lr_cam_stop_scan:
-      expose: false
-    script.package_delivered_announcement:
-      expose: false
-    script.test_script:
-      expose: false
+# google_assistant:
+  # project_id: home-assistant-178722
+  # client_id: !secret google_assistant_client_id
+  # access_token: !secret google_assistant_access_token
+  # api_key: !secret google_assistant_api_key
+  # exposed_domains:
+    # - light
+  # entity_config:
+    # script.bathroom_light_toggle:
+      # expose: false
+    # script.bedroom_light_toggle:
+      # expose: false
+    # script.hall_light_toggle:
+      # expose: false
+    # script.living_light_toggle:
+      # expose: false
+    # script.office_light_toggle:
+      # expose: false
+    # script.vanity_light_toggle:
+      # expose: false
+    # script.kitch_cam_goto_bd:
+      # expose: false
+    # script.kitch_cam_goto_cf:
+      # expose: false
+    # script.kitch_cam_goto_gd:
+      # expose: false
+    # script.kitch_cam_goto_lr:
+      # expose: false
+    # script.kitch_cam_start_scan:
+      # expose: false
+    # script.kitch_cam_stop_scan:
+      # expose: false
+    # script.lr_cam_goto_fd:
+      # expose: false
+    # script.lr_cam_goto_norm:
+      # expose: false
+    # script.lr_cam_start_scan:
+      # expose: false
+    # script.lr_cam_stop_scan:
+      # expose: false
+    # script.package_delivered_announcement:
+      # expose: false
+    # script.test_script:
+      # expose: false
 
 # USPS
 #usps:
@@ -192,9 +174,9 @@ mqtt:
   password: !secret mqtt_password
             
 # Lyric
-lyric:
-  client_id: !secret lyric_client_id
-  client_secret: !secret lyric_client_secret
+# lyric:
+  # client_id: !secret lyric_client_id
+  # client_secret: !secret lyric_client_secret
 
 # Other configurations to include
 device_tracker: !include device_tracker.yaml
