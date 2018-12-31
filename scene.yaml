@@ -1,0 +1,30 @@
+- name: Solid
+  entities:
+    light.christmas_tree:
+      state: true
+      effect: "Solid"
+- name: Christmas
+  entities:
+    light.christmas_tree:
+      state: true
+      effect: "Christmas"
+- name: Holly Jolly
+  entities:
+    light.christmas_tree:
+      state: true
+      effect: "Holly Jolly"
+- name: Candy Cane
+  entities:
+    light.christmas_tree:
+      state: true
+      effect: "Candy Cane"
+- name: Twinkle
+  entities:
+    light.christmas_tree:
+      state: true
+      effect: "Twinkle"
+- name: Rainbow
+  entities:
+    light.christmas_tree:
+      state: true
+      effect: Rainbow

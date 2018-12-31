@@ -1,0 +1,3 @@
+unlocked_door:
+  duration: 00:30:00
+  icon: mdi:lock-open

@@ -1,0 +1,18 @@
+chris_home:
+  zone: home
+  devices:
+    - device_tracker.google_maps_111338702751595920411
+  tolerance: 1610
+  unit_of_measurement: mi
+jazzy_home:
+  zone: home
+  devices:
+    - device_tracker.google_maps_100512454698964262227
+  tolerance: 1610
+  unit_of_measurement: mi
+work:
+  zone: work
+  devices:
+    - device_tracker.google_maps_111338702751595920411
+  tolerance: 1610
+  unit_of_measurement: mi
